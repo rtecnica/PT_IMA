@@ -71,11 +71,14 @@ def main():
         else:
             # Limpiar newlines y convertir a ASCII
             tempstr = tempstr + bytes.fromhex(line.replace('\n', '')).decode()
+    # Agregar último payload
+    payloads.append(tempstr)
 
     # Convertir strings a JSON, agregando estampa de tiempo
     for p in range(len(payloads)):
         payloads[p] = json.loads("{" + payloads[p].replace('=>', ':') + "}")
         payloads[p]["time"] = str(datetime.utcnow())
+
 
     # Subir payloads a MongoDB, usando API
     db = client.Test
